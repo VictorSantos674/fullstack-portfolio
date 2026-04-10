@@ -105,7 +105,7 @@ export default function Hero() {
 
             <motion.div variants={itemVariants} className="flex items-center gap-4 pt-2">
               <a
-                href="https://github.com/victorss14"
+                href="https://github.com/VictorSantos674"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#94A3B8] hover:text-[#3B82F6] transition-colors duration-200"
@@ -114,7 +114,7 @@ export default function Hero() {
                 <GitFork size={22} />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/in/vicsantosdev/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#94A3B8] hover:text-[#3B82F6] transition-colors duration-200"
@@ -122,13 +122,13 @@ export default function Hero() {
               >
                 <Link size={22} />
               </a>
-              <a
-                href="mailto:victorss2018@gmail.com"
+              <button
+                onClick={scrollToContact}
                 className="text-[#94A3B8] hover:text-[#3B82F6] transition-colors duration-200"
-                aria-label="Email"
+                aria-label="Contato"
               >
                 <Mail size={22} />
-              </a>
+              </button>
             </motion.div>
           </motion.div>
 

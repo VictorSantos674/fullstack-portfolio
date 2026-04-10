@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Mail, GitFork, MapPin, Copy, Check, Send } from 'lucide-react';
+import { Mail, GitFork, MapPin, Link, Copy, Check, Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 interface FormState {
@@ -76,6 +76,12 @@ export default function Contact() {
       label: 'GitHub',
       value: 'github.com/VictorSantos674',
       href: 'https://github.com/VictorSantos674',
+    },
+    {
+      icon: Link,
+      label: 'LinkedIn',
+      value: 'linkedin.com/in/vicsantosdev',
+      href: 'https://www.linkedin.com/in/vicsantosdev/',
     },
     {
       icon: MapPin,
