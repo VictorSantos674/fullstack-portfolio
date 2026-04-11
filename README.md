@@ -2,7 +2,7 @@
 
 Portfólio pessoal desenvolvido com React + TypeScript, apresentando projetos, experiências e habilidades técnicas como Desenvolvedor Fullstack .NET.
 
-**🔗 Ver online** — link disponível após deploy
+**[🔗 Ver online](https://victor-souza-portfolio.vercel.app)**
 
 ---
 
@@ -57,6 +57,6 @@ As chaves são obtidas no painel do EmailJS.
 
 ## Contato
 
-- **Email:** 3.victorsouza@gmail.com
+- **Email:** [3.victorsouza@gmail.com](mailto:3.victorsouza@gmail.com)
 - **GitHub:** [VictorSantos674](https://github.com/VictorSantos674)
 - **LinkedIn:** [Victor Souza Santos](https://www.linkedin.com/in/vicsantosdev/)

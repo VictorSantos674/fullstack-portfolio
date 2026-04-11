@@ -76,7 +76,7 @@ export const projects: Project[] = [
     tech: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite'],
     tags: ['React', 'TypeScript', 'Tailwind CSS'],
     github: 'https://github.com/VictorSantos674/fullstack-portfolio',
-    demo: null,
+    demo: 'https://victor-souza-portfolio.vercel.app',
   },
 ];
 
