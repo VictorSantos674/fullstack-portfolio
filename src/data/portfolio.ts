@@ -38,30 +38,36 @@ export interface Language {
 export const projects: Project[] = [
   {
     id: 1,
-    title: 'Sistema de Gestão TJPE',
-    description:
-      'Modernização de sistema legado Delphi para plataforma web moderna no TJPE/SETIC.',
-    longDescription:
-      'Projeto de grande escala que envolveu a migração completa de módulos de gestão do Tribunal de Justiça de Pernambuco. Utilizamos Clean Architecture e Domain-Driven Design para garantir escalabilidade, com .NET 9 no backend e React + TypeScript no frontend. Módulos incluem gestão de estoque, patrimônio e abertura de chamados.',
-    tech: ['.NET 9', 'React', 'TypeScript', 'SQL Server', 'Clean Architecture', 'DDD'],
-    tags: ['.NET', 'React', 'TypeScript', 'SQL Server'],
-    github: '#',
+    title: 'TenantFlow',
+    description: 'Em breve.',
+    longDescription: 'Em breve.',
+    tech: [],
+    tags: [],
+    github: null,
     demo: null,
   },
   {
     id: 2,
-    title: 'Plataforma Blue Technology',
-    description:
-      'Sistema fullstack desenvolvido na Blue Technology com arquitetura limpa e integrações REST.',
-    longDescription:
-      'Sistema fullstack corporativo desenvolvido durante atuação na Blue Technology. A plataforma utiliza .NET 9 com ASP.NET Core no backend e Vue.js + TypeScript no frontend. Implementa Clean Architecture, Entity Framework Core para persistência, e integrações REST com serviços externos.',
-    tech: ['.NET 9', 'Vue.js', 'TypeScript', 'EF Core', 'REST API'],
-    tags: ['.NET', 'Vue.js', 'TypeScript', 'EF Core'],
-    github: '#',
+    title: 'App Mobile',
+    description: 'Em breve.',
+    longDescription: 'Em breve.',
+    tech: [],
+    tags: [],
+    github: null,
     demo: null,
   },
   {
     id: 3,
+    title: 'Sistema de Controle de Gastos Residenciais',
+    description: 'Em breve.',
+    longDescription: 'Em breve.',
+    tech: [],
+    tags: [],
+    github: null,
+    demo: null,
+  },
+  {
+    id: 4,
     title: 'Portfolio Pessoal',
     description:
       'Este próprio portfolio, desenvolvido como vitrine de habilidades frontend modernas.',
@@ -69,19 +75,7 @@ export const projects: Project[] = [
       'Portfolio desenvolvido com React + TypeScript + Vite + Tailwind CSS, apresentando animações suaves com Framer Motion e design responsivo. O projeto demonstra domínio de componentização, tipagem forte com TypeScript e estilização moderna com Tailwind CSS.',
     tech: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite'],
     tags: ['React', 'TypeScript', 'Tailwind CSS'],
-    github: 'https://github.com/victorss14/fullstack-portfolio',
-    demo: '#',
-  },
-  {
-    id: 4,
-    title: 'API E-commerce REST',
-    description:
-      'API RESTful completa com autenticação JWT, documentação Swagger e arquitetura em camadas.',
-    longDescription:
-      'API RESTful completa para e-commerce construída com ASP.NET Core e .NET 9. Implementa autenticação e autorização via JWT, documentação automática com Swagger/OpenAPI, persistência com SQL Server e Entity Framework Core, e arquitetura em camadas (Controller, Service, Repository).',
-    tech: ['.NET 9', 'ASP.NET Core', 'JWT', 'Swagger', 'SQL Server'],
-    tags: ['.NET', 'REST API', 'JWT', 'Swagger'],
-    github: '#',
+    github: 'https://github.com/VictorSantos674/fullstack-portfolio',
     demo: null,
   },
 ];
