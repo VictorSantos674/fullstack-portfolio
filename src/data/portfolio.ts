@@ -59,12 +59,14 @@ export const projects: Project[] = [
   {
     id: 3,
     title: 'Sistema de Controle de Gastos Residenciais',
-    description: 'Em breve.',
-    longDescription: 'Em breve.',
-    tech: [],
-    tags: [],
-    github: null,
-    demo: null,
+    description:
+      'Sistema web fullstack para controle de gastos residenciais com autenticação JWT, isolamento de dados por usuário, relatórios financeiros e exportação em PDF.',
+    longDescription:
+      'Aplicação fullstack com Web API em C#/ASP.NET Core 10 e frontend em React + TypeScript. Possui autenticação com JWT e senhas hasheadas via BCrypt, isolamento completo de dados por perfil, CRUD de pessoas e categorias, registro de transações com regras de validação por tipo e faixa etária, relatórios por pessoa e por categoria, e exportação de relatórios em PDF com jsPDF. Backend hospedado no Railway via Dockerfile customizado; frontend no Vercel com SPA routing configurado.',
+    tech: ['C#', 'ASP.NET Core', 'Entity Framework Core', 'SQLite', 'JWT', 'React', 'TypeScript', 'Tailwind CSS', 'Axios', 'React Router', 'jsPDF', 'Vite'],
+    tags: ['C#', 'ASP.NET Core', 'React', 'TypeScript', 'Fullstack'],
+    github: 'https://github.com/VictorSantos674/sistema-controle-gastos-residenciais',
+    demo: 'https://sistema-controle-gastos-residencial.vercel.app/login',
   },
   {
     id: 4,
