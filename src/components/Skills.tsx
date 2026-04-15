@@ -2,6 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Server, Monitor, Database, Wrench } from 'lucide-react';
 import { skillCategories } from '../data/portfolio';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const iconMap: Record<string, React.ElementType> = {
   Server,
@@ -25,6 +26,7 @@ const iconColorMap: Record<string, string> = {
 };
 
 export default function Skills() {
+  const { t } = useLanguage();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
@@ -37,11 +39,9 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">Habilidades</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">{t.skills.title}</h2>
           <div className="w-16 h-1 bg-[#3B82F6] mx-auto rounded-full mb-4" />
-          <p className="text-[#94A3B8] max-w-xl mx-auto">
-            Tecnologias e ferramentas que utilizo no dia a dia para construir soluções completas.
-          </p>
+          <p className="text-[#94A3B8] max-w-xl mx-auto">{t.skills.subtitle}</p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

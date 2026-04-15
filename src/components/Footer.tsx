@@ -1,13 +1,16 @@
 import { Heart } from 'lucide-react';
-
-const quickLinks = [
-  { label: 'Início', href: '#inicio' },
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Projetos', href: '#projetos' },
-  { label: 'Contato', href: '#contato' },
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
+  const quickLinks = [
+    { label: t.nav.home, href: '#inicio' },
+    { label: t.nav.about, href: '#sobre' },
+    { label: t.nav.projects, href: '#projetos' },
+    { label: t.nav.contact, href: '#contato' },
+  ];
+
   const handleNavClick = (href: string) => {
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -24,14 +27,12 @@ export default function Footer() {
               </div>
               <span className="text-[#F1F5F9] font-semibold">Victor Souza Santos</span>
             </div>
-            <p className="text-[#94A3B8] text-sm leading-relaxed">
-              Desenvolvedor Fullstack .NET | React — Recife, PE
-            </p>
+            <p className="text-[#94A3B8] text-sm leading-relaxed">{t.footer.tagline}</p>
           </div>
 
           {/* Quick links */}
           <div>
-            <h4 className="text-[#F1F5F9] font-semibold text-sm mb-3">Links Rápidos</h4>
+            <h4 className="text-[#F1F5F9] font-semibold text-sm mb-3">{t.footer.quickLinks}</h4>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.href}>
@@ -49,7 +50,7 @@ export default function Footer() {
 
           {/* Tech */}
           <div>
-            <h4 className="text-[#F1F5F9] font-semibold text-sm mb-3">Feito com</h4>
+            <h4 className="text-[#F1F5F9] font-semibold text-sm mb-3">{t.footer.builtWith}</h4>
             <div className="flex flex-wrap gap-2">
               {['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite'].map((tech) => (
                 <span
@@ -64,9 +65,9 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 border-t border-[#1E293B] flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-[#94A3B8]">
-          <p>© 2026 Victor Souza Santos. Todos os direitos reservados.</p>
+          <p>{t.footer.rights}</p>
           <p className="flex items-center gap-1.5">
-            Feito com <Heart size={14} className="text-red-400 fill-red-400" /> e React + TypeScript
+            {t.footer.madeWith} <Heart size={14} className="text-red-400 fill-red-400" /> React + TypeScript
           </p>
         </div>
       </div>

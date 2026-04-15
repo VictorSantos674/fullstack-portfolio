@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-
-const navLinks = [
-  { label: 'Início', href: '#inicio' },
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Habilidades', href: '#habilidades' },
-  { label: 'Projetos', href: '#projetos' },
-  { label: 'Experiência', href: '#experiencia' },
-  { label: 'Contato', href: '#contato' },
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Header() {
+  const { language, toggleLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = [
+    { label: t.nav.home, href: '#inicio' },
+    { label: t.nav.about, href: '#sobre' },
+    { label: t.nav.skills, href: '#habilidades' },
+    { label: t.nav.projects, href: '#projetos' },
+    { label: t.nav.experience, href: '#experiencia' },
+    { label: t.nav.contact, href: '#contato' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -48,6 +50,17 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6">
+            {/* Language toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-md border border-[#334155] hover:border-[#3B82F6]/60 transition-colors duration-200 text-xs font-semibold"
+              aria-label="Toggle language"
+            >
+              <span className={language === 'pt' ? 'text-[#3B82F6]' : 'text-[#475569]'}>PT</span>
+              <span className="text-[#334155]">|</span>
+              <span className={language === 'en' ? 'text-[#3B82F6]' : 'text-[#475569]'}>EN</span>
+            </button>
+
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -60,14 +73,25 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden text-[#94A3B8] hover:text-[#F1F5F9] transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: language toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-3">
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1 px-2 py-0.5 rounded-md border border-[#334155] hover:border-[#3B82F6]/60 transition-colors duration-200 text-xs font-semibold"
+              aria-label="Toggle language"
+            >
+              <span className={language === 'pt' ? 'text-[#3B82F6]' : 'text-[#475569]'}>PT</span>
+              <span className="text-[#334155]">|</span>
+              <span className={language === 'en' ? 'text-[#3B82F6]' : 'text-[#475569]'}>EN</span>
+            </button>
+            <button
+              className="text-[#94A3B8] hover:text-[#F1F5F9] transition-colors"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 

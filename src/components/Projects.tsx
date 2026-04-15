@@ -1,18 +1,28 @@
 import { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { GitFork, ExternalLink, X, Tag } from 'lucide-react';
-import { projects, Project } from '../data/portfolio';
+import { projects } from '../data/portfolio';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const allTags = Array.from(new Set(projects.flatMap((p) => p.tags)));
 
 export default function Projects() {
+  const { t } = useLanguage();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  const [activeTag, setActiveTag] = useState<string>('Todos');
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeTag, setActiveTag] = useState<string>('all');
+  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
 
   const filtered =
-    activeTag === 'Todos' ? projects : projects.filter((p) => p.tags.includes(activeTag));
+    activeTag === 'all' ? projects : projects.filter((p) => p.tags.includes(activeTag));
+
+  const selectedProject = projects.find((p) => p.id === selectedProjectId) ?? null;
+
+  type ProjectId = keyof typeof t.projects.items;
+  const getDescription = (id: number) =>
+    t.projects.items[id as ProjectId]?.description ?? '';
+  const getLongDescription = (id: number) =>
+    t.projects.items[id as ProjectId]?.longDescription ?? '';
 
   return (
     <section id="projetos" className="py-24 px-4 sm:px-6 lg:px-8">
@@ -23,11 +33,9 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">Projetos</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">{t.projects.title}</h2>
           <div className="w-16 h-1 bg-[#3B82F6] mx-auto rounded-full mb-4" />
-          <p className="text-[#94A3B8] max-w-xl mx-auto">
-            Uma seleção de projetos que demonstram minhas habilidades e experiências.
-          </p>
+          <p className="text-[#94A3B8] max-w-xl mx-auto">{t.projects.subtitle}</p>
         </motion.div>
 
         {/* Filter buttons */}
@@ -37,7 +45,7 @@ export default function Projects() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-2 mb-10"
         >
-          {['Todos', ...allTags].map((tag) => (
+          {['all', ...allTags].map((tag) => (
             <button
               key={tag}
               onClick={() => setActiveTag(tag)}
@@ -47,7 +55,7 @@ export default function Projects() {
                   : 'bg-[#1E293B] text-[#94A3B8] border border-[#334155] hover:border-[#3B82F6]/50 hover:text-[#60A5FA]'
               }`}
             >
-              {tag}
+              {tag === 'all' ? t.projects.all : tag}
             </button>
           ))}
         </motion.div>
@@ -73,7 +81,7 @@ export default function Projects() {
                     {project.title}
                   </h3>
                   <p className="text-[#94A3B8] text-sm leading-relaxed mb-4 flex-1">
-                    {project.description}
+                    {getDescription(project.id)}
                   </p>
 
                   <div className="flex flex-wrap gap-1.5 mb-5">
@@ -112,10 +120,10 @@ export default function Projects() {
                       </a>
                     )}
                     <button
-                      onClick={() => setSelectedProject(project)}
+                      onClick={() => setSelectedProjectId(project.id)}
                       className="ml-auto px-4 py-1.5 bg-[#3B82F6]/10 hover:bg-[#3B82F6] text-[#3B82F6] hover:text-white border border-[#3B82F6]/30 hover:border-[#3B82F6] rounded-lg text-sm font-medium transition-all duration-200"
                     >
-                      Detalhes
+                      {t.projects.details}
                     </button>
                   </div>
                 </div>
@@ -133,7 +141,7 @@ export default function Projects() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-            onClick={() => setSelectedProject(null)}
+            onClick={() => setSelectedProjectId(null)}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -148,7 +156,7 @@ export default function Projects() {
                 <div className="flex items-start justify-between mb-4">
                   <h3 className="text-[#F1F5F9] font-bold text-xl">{selectedProject.title}</h3>
                   <button
-                    onClick={() => setSelectedProject(null)}
+                    onClick={() => setSelectedProjectId(null)}
                     className="text-[#94A3B8] hover:text-[#F1F5F9] transition-colors ml-4 flex-shrink-0"
                   >
                     <X size={20} />
@@ -156,18 +164,18 @@ export default function Projects() {
                 </div>
 
                 <p className="text-[#94A3B8] text-sm leading-relaxed mb-5">
-                  {selectedProject.longDescription}
+                  {getLongDescription(selectedProject.id)}
                 </p>
 
                 <div className="mb-5">
-                  <h4 className="text-[#F1F5F9] font-semibold text-sm mb-3">Stack Tecnológico</h4>
+                  <h4 className="text-[#F1F5F9] font-semibold text-sm mb-3">{t.projects.techStack}</h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedProject.tech.map((t) => (
+                    {selectedProject.tech.map((tech) => (
                       <span
-                        key={t}
+                        key={tech}
                         className="px-3 py-1 bg-[#0B1121] border border-[#334155] rounded-full text-xs text-[#60A5FA] font-medium"
                       >
-                        {t}
+                        {tech}
                       </span>
                     ))}
                   </div>
@@ -193,7 +201,7 @@ export default function Projects() {
                       className="flex items-center gap-2 px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] rounded-lg text-white transition-colors text-sm"
                     >
                       <ExternalLink size={16} />
-                      Ver Demo
+                      {t.projects.viewDemo}
                     </a>
                   )}
                 </div>

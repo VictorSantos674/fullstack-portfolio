@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { GitFork, Link, Mail, ArrowDown } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const codeSnippet = `// Victor Souza Santos
 interface Developer {
@@ -35,6 +36,8 @@ const itemVariants = {
 };
 
 export default function Hero() {
+  const { t } = useLanguage();
+
   const scrollToProjects = () => {
     document.querySelector('#projetos')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -63,7 +66,7 @@ export default function Hero() {
             className="space-y-6"
           >
             <motion.p variants={itemVariants} className="text-[#3B82F6] font-medium text-lg">
-              Olá, sou
+              {t.hero.greeting}
             </motion.p>
 
             <motion.h1
@@ -77,15 +80,14 @@ export default function Hero() {
               variants={itemVariants}
               className="text-xl sm:text-2xl font-semibold text-[#60A5FA]"
             >
-              Desenvolvedor Fullstack .NET
+              {t.hero.subtitle}
             </motion.p>
 
             <motion.p
               variants={itemVariants}
               className="text-[#94A3B8] text-base sm:text-lg leading-relaxed max-w-lg"
             >
-              Especializado em construir aplicações web robustas com .NET 9 e React/TypeScript.
-              Apaixonado por Clean Architecture, DDD e código de qualidade.
+              {t.hero.description}
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
@@ -93,13 +95,13 @@ export default function Hero() {
                 onClick={scrollToProjects}
                 className="px-6 py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold rounded-lg transition-colors duration-200"
               >
-                Ver Projetos
+                {t.hero.viewProjects}
               </button>
               <button
                 onClick={scrollToContact}
                 className="px-6 py-3 border border-[#3B82F6] text-[#3B82F6] hover:bg-[#3B82F6] hover:text-white font-semibold rounded-lg transition-all duration-200"
               >
-                Contato
+                {t.hero.contact}
               </button>
             </motion.div>
 

@@ -1,9 +1,11 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { GraduationCap, MapPin, Calendar, Globe } from 'lucide-react';
-import { education, languages } from '../data/portfolio';
+import { education } from '../data/portfolio';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Education() {
+  const { t } = useLanguage();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
@@ -16,7 +18,7 @@ export default function Education() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">Formação & Idiomas</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">{t.education.title}</h2>
           <div className="w-16 h-1 bg-[#3B82F6] mx-auto rounded-full" />
         </motion.div>
 
@@ -35,7 +37,7 @@ export default function Education() {
                   <GraduationCap className="text-[#3B82F6]" size={20} />
                 </div>
                 <div>
-                  <h3 className="text-[#F1F5F9] font-bold text-base leading-snug">{edu.degree}</h3>
+                  <h3 className="text-[#F1F5F9] font-bold text-base leading-snug">{t.education.degree}</h3>
                   <p className="text-[#3B82F6] text-sm font-medium mt-0.5">{edu.institution}</p>
                 </div>
               </div>
@@ -63,10 +65,10 @@ export default function Education() {
               <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 border border-[#3B82F6]/20 flex items-center justify-center flex-shrink-0">
                 <Globe className="text-[#3B82F6]" size={20} />
               </div>
-              <h3 className="text-[#F1F5F9] font-bold text-base">Idiomas</h3>
+              <h3 className="text-[#F1F5F9] font-bold text-base">{t.education.languagesTitle}</h3>
             </div>
             <div className="space-y-3">
-              {languages.map((lang) => (
+              {t.education.languagesList.map((lang) => (
                 <div key={lang.name} className="flex items-center justify-between">
                   <span className="text-[#94A3B8] text-sm">{lang.name}</span>
                   <span className="px-3 py-1 bg-[#3B82F6]/10 text-[#60A5FA] border border-[#3B82F6]/20 rounded-full text-xs font-medium">

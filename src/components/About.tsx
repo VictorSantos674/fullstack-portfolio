@@ -1,18 +1,20 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { User, Briefcase, Code2 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const techBadges = ['.NET 9', 'React', 'TypeScript', 'ASP.NET Core', 'SQL Server', 'Clean Architecture'];
 
-const facts = [
-  { icon: Briefcase, label: '2+ anos', sub: 'de experiência' },
-  { icon: Code2, label: '10+', sub: 'projetos' },
-  { icon: User, label: '2', sub: 'empresas' },
-];
-
 export default function About() {
+  const { t } = useLanguage();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  const facts = [
+    { icon: Briefcase, label: t.about.yearsExp, sub: t.about.yearsExpLabel },
+    { icon: Code2, label: '10+', sub: t.about.projectsLabel },
+    { icon: User, label: '2', sub: t.about.companiesLabel },
+  ];
 
   return (
     <section id="sobre" className="py-24 px-4 sm:px-6 lg:px-8">
@@ -23,7 +25,7 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">Sobre Mim</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">{t.about.title}</h2>
           <div className="w-16 h-1 bg-[#3B82F6] mx-auto rounded-full" />
         </motion.div>
 
@@ -35,25 +37,9 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-5"
           >
-            <p className="text-[#94A3B8] text-base sm:text-lg leading-relaxed">
-              Sou um desenvolvedor fullstack apaixonado por tecnologia, com foco em{' '}
-              <span className="text-[#60A5FA] font-medium">.NET 9</span> e{' '}
-              <span className="text-[#60A5FA] font-medium">React/TypeScript</span>. Tenho experiência
-              sólida na construção de aplicações web modernas, desde APIs RESTful até interfaces de
-              usuário sofisticadas.
-            </p>
-            <p className="text-[#94A3B8] text-base sm:text-lg leading-relaxed">
-              Durante meu estágio no{' '}
-              <span className="text-[#F1F5F9] font-medium">TJPE/SETIC</span>, participei ativamente da
-              modernização de sistemas legados em Delphi para plataformas web modernas com .NET 9 e
-              React, desenvolvendo módulos críticos de gestão.
-            </p>
-            <p className="text-[#94A3B8] text-base sm:text-lg leading-relaxed">
-              Na{' '}
-              <span className="text-[#F1F5F9] font-medium">Blue Technology</span>, atuei como
-              Desenvolvedor Fullstack Jr, aplicando Clean Architecture, DDD e melhores práticas de
-              engenharia de software em projetos reais.
-            </p>
+            <p className="text-[#94A3B8] text-base sm:text-lg leading-relaxed">{t.about.p1}</p>
+            <p className="text-[#94A3B8] text-base sm:text-lg leading-relaxed">{t.about.p2}</p>
+            <p className="text-[#94A3B8] text-base sm:text-lg leading-relaxed">{t.about.p3}</p>
 
             <div className="flex flex-wrap gap-2 pt-2">
               {techBadges.map((badge) => (
@@ -74,7 +60,7 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="bg-[#1E293B] border border-[#334155] rounded-2xl p-8 space-y-6">
-              <h3 className="text-[#F1F5F9] font-semibold text-lg mb-4">Fatos Rápidos</h3>
+              <h3 className="text-[#F1F5F9] font-semibold text-lg mb-4">{t.about.quickFacts}</h3>
               {facts.map(({ icon: Icon, label, sub }) => (
                 <div key={label} className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-[#3B82F6]/10 border border-[#3B82F6]/20 flex items-center justify-center flex-shrink-0">
@@ -88,13 +74,7 @@ export default function About() {
               ))}
 
               <div className="pt-4 border-t border-[#334155]">
-                <p className="text-[#94A3B8] text-sm leading-relaxed">
-                  Cursando{' '}
-                  <span className="text-[#F1F5F9] font-medium">
-                    Bacharelado em Ciência da Computação
-                  </span>{' '}
-                  na UNICAP, Recife/PE — conclusão prevista para 2026.
-                </p>
+                <p className="text-[#94A3B8] text-sm leading-relaxed">{t.about.educationNote}</p>
               </div>
             </div>
           </motion.div>

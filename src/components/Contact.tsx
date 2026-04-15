@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Mail, GitFork, MapPin, Link, Copy, Check, Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface FormState {
   name: string;
@@ -10,6 +11,7 @@ interface FormState {
 }
 
 export default function Contact() {
+  const { t } = useLanguage();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   const [form, setForm] = useState<FormState>({ name: '', email: '', message: '' });
@@ -21,13 +23,13 @@ export default function Contact() {
 
   const validate = (): boolean => {
     const newErrors: Partial<FormState> = {};
-    if (!form.name.trim()) newErrors.name = 'Nome obrigatório';
+    if (!form.name.trim()) newErrors.name = t.contact.nameRequired;
     if (!form.email.trim()) {
-      newErrors.email = 'Email obrigatório';
+      newErrors.email = t.contact.emailRequired;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = 'Email inválido';
+      newErrors.email = t.contact.emailInvalid;
     }
-    if (!form.message.trim()) newErrors.message = 'Mensagem obrigatória';
+    if (!form.message.trim()) newErrors.message = t.contact.messageRequired;
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -52,7 +54,7 @@ export default function Contact() {
       setForm({ name: '', email: '', message: '' });
       setTimeout(() => setSent(false), 4000);
     } catch {
-      setError('Erro ao enviar mensagem. Tente novamente.');
+      setError(t.contact.errorMsg);
     } finally {
       setSending(false);
     }
@@ -85,7 +87,7 @@ export default function Contact() {
     },
     {
       icon: MapPin,
-      label: 'Localização',
+      label: t.contact.locationLabel,
       value: 'Recife, Pernambuco',
       href: null,
     },
@@ -100,11 +102,9 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">Contato</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#F1F5F9] mb-4">{t.contact.title}</h2>
           <div className="w-16 h-1 bg-[#3B82F6] mx-auto rounded-full mb-4" />
-          <p className="text-[#94A3B8] max-w-xl mx-auto">
-            Tem um projeto em mente ou quer conversar? Entre em contato!
-          </p>
+          <p className="text-[#94A3B8] max-w-xl mx-auto">{t.contact.subtitle}</p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-10">
@@ -142,10 +142,10 @@ export default function Contact() {
                   <button
                     onClick={copyEmail}
                     className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0B1121] border border-[#334155] hover:border-[#3B82F6]/50 rounded-lg text-xs text-[#94A3B8] hover:text-[#F1F5F9] transition-all"
-                    title="Copiar email"
+                    title={t.contact.copy}
                   >
                     {copied ? <Check size={12} className="text-green-400" /> : <Copy size={12} />}
-                    {copied ? 'Copiado!' : 'Copiar'}
+                    {copied ? t.contact.copied : t.contact.copy}
                   </button>
                 )}
               </div>
@@ -163,19 +163,19 @@ export default function Contact() {
               className="bg-[#1E293B] border border-[#334155] rounded-2xl p-6 space-y-4"
             >
               <div>
-                <label className="block text-[#94A3B8] text-sm mb-1.5">Nome</label>
+                <label className="block text-[#94A3B8] text-sm mb-1.5">{t.contact.nameLabel}</label>
                 <input
                   type="text"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="Seu nome"
+                  placeholder={t.contact.namePlaceholder}
                   className="w-full bg-[#0B1121] border border-[#334155] rounded-lg px-4 py-2.5 text-[#F1F5F9] text-sm placeholder-[#475569] focus:outline-none focus:border-[#3B82F6] transition-colors"
                 />
                 {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
               </div>
 
               <div>
-                <label className="block text-[#94A3B8] text-sm mb-1.5">Email</label>
+                <label className="block text-[#94A3B8] text-sm mb-1.5">{t.contact.emailLabel}</label>
                 <input
                   type="email"
                   value={form.email}
@@ -187,11 +187,11 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="block text-[#94A3B8] text-sm mb-1.5">Mensagem</label>
+                <label className="block text-[#94A3B8] text-sm mb-1.5">{t.contact.messageLabel}</label>
                 <textarea
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  placeholder="Sua mensagem..."
+                  placeholder={t.contact.messagePlaceholder}
                   rows={5}
                   className="w-full bg-[#0B1121] border border-[#334155] rounded-lg px-4 py-2.5 text-[#F1F5F9] text-sm placeholder-[#475569] focus:outline-none focus:border-[#3B82F6] transition-colors resize-none"
                 />
@@ -206,14 +206,14 @@ export default function Contact() {
                 {sent ? (
                   <>
                     <Check size={18} />
-                    Mensagem enviada!
+                    {t.contact.sent}
                   </>
                 ) : sending ? (
-                  <span className="animate-pulse">Enviando...</span>
+                  <span className="animate-pulse">{t.contact.sending}</span>
                 ) : (
                   <>
                     <Send size={18} />
-                    Enviar Mensagem
+                    {t.contact.send}
                   </>
                 )}
               </button>
