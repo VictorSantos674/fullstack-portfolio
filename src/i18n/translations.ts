@@ -15,7 +15,13 @@ export interface Translations {
   };
   experience: {
     title: string; subtitle: string;
-    entries: Array<{ role: string; activities: string[] }>;
+    entries: Array<{
+      role: string;
+      company: string;
+      period: string;
+      location: string;
+      activities: string[];
+    }>;
   };
   education: {
     title: string; languagesTitle: string; degree: string;
@@ -46,15 +52,15 @@ const translations: Record<Language, Translations> = {
       greeting: 'Olá, sou',
       subtitle: 'Desenvolvedor Fullstack .NET',
       description:
-        'Especializado em construir aplicações web robustas com .NET 9 e React/TypeScript. Apaixonado por Clean Architecture, DDD e código de qualidade.',
+        'Construo sistemas fullstack em .NET moderno e React — do modelo de domínio ao deploy, com Clean Architecture, DDD e testes integrados desde o primeiro commit.',
       viewProjects: 'Ver Projetos',
       contact: 'Contato',
     },
     about: {
       title: 'Sobre Mim',
-      p1: 'Sou um desenvolvedor fullstack apaixonado por tecnologia, com foco em .NET 9 e React/TypeScript. Tenho experiência sólida na construção de aplicações web modernas, desde APIs RESTful até interfaces de usuário sofisticadas.',
-      p2: 'Durante meu estágio no TJPE/SETIC, participei ativamente da modernização de sistemas legados em Delphi para plataformas web modernas com .NET 9 e React, desenvolvendo módulos críticos de gestão.',
-      p3: 'Na Blue Technology, atuei como Desenvolvedor Fullstack Jr, aplicando Clean Architecture, DDD e melhores práticas de engenharia de software em projetos reais.',
+      p1: 'Desenvolvedor fullstack com dois anos de experiência em produção real — não apenas em projetos pessoais. Construí features que passaram a servir usuários internos no TJPE/SETIC e apliquei Clean Architecture e DDD em entregas para clientes na Blue Technology.',
+      p2: 'No TJPE/SETIC, contribuí na migração de sistemas Delphi legados para uma stack moderna em .NET 9 e React, entregando módulos de gestão de estoque, patrimônio e chamados que passaram a servir usuários internos do tribunal.',
+      p3: 'Na Blue Technology, atuei como Desenvolvedor Fullstack Jr aplicando Clean Architecture, Domain-Driven Design e melhores práticas de engenharia em entregas reais — design de APIs em ASP.NET Core, interfaces em React/TypeScript e colaboração via GitLab e Azure DevOps.',
       quickFacts: 'Fatos Rápidos',
       yearsExp: '2+ anos',
       yearsExpLabel: 'de experiência',
@@ -65,51 +71,68 @@ const translations: Record<Language, Translations> = {
     },
     skills: {
       title: 'Habilidades',
-      subtitle: 'Tecnologias e ferramentas que utilizo no dia a dia para construir soluções completas.',
+      subtitle:
+        'Stack que uso para desenhar APIs, painéis administrativos e interfaces internas — do banco de dados à camada de apresentação.',
     },
     projects: {
       title: 'Projetos',
-      subtitle: 'Uma seleção de projetos que demonstram minhas habilidades e experiências.',
+      subtitle:
+        'Projetos que entreguei do design do domínio ao deploy — código no GitHub e, quando possível, demos rodando.',
       all: 'Todos',
       details: 'Detalhes',
       techStack: 'Stack Tecnológico',
       viewDemo: 'Ver Demo',
       items: {
-        1: { description: 'Em breve.', longDescription: 'Em breve.' },
-        2: { description: 'Em breve.', longDescription: 'Em breve.' },
+        1: {
+          description: 'Em construção — atualização em breve.',
+          longDescription: 'Em construção — atualização em breve.',
+        },
+        5: {
+          description:
+            'Plataforma de feedback de produto multi-tenant com widget embarcável e isolamento de workspace ponta a ponta.',
+          longDescription:
+            'Coleta de feedback nos moldes do Canny, hospedável pelo cliente. Cada workspace opera como tenant isolado, com painel administrativo separado do widget que cada cliente embeda no próprio site.\n\nA parte interessante é o isolamento real entre workspaces, refresh tokens com hash SHA-256 e testes de integração rodando contra o próprio app via WebApplicationFactory — não mocks. O widget e o admin compartilham backend mas distribuem como bundles separados.\n\nEngenharia: Docker Compose para subir o stack inteiro local, health checks, GitHub Actions com coverage gate e smoke test de containers a cada push.',
+        },
+        6: {
+          description:
+            'Log de auditoria corporativo com Event Sourcing e timeline visual de quem alterou o que e quando.',
+          longDescription:
+            'Sistemas corporativos precisam de uma trilha imutável e replayável de alterações em entidades sensíveis — quem editou, quando e qual era o estado anterior. Auditrek resolve isso com Event Sourcing.\n\nEventos de criação, alteração e exclusão são a fonte de verdade. O estado atual é reconstruído a partir deles, e a timeline mostra ator, data, diff de campos e o estado completo reconstruído em cada ponto. Isso permite responder perguntas como "como esse produto estava em janeiro?" sem snapshots manuais.\n\nStack: monorepo Turborepo + pnpm, frontend Next.js, API Fastify com tRPC e Zod, Prisma Client Extension, PostgreSQL no Neon, Clerk para autenticação. Deploy split entre Vercel (front) e Railway (API). Demo ao vivo disponível.',
+        },
         3: {
           description:
-            'Sistema web fullstack para controle de gastos residenciais com autenticação JWT, isolamento de dados por usuário, relatórios financeiros e exportação em PDF.',
+            'Controle de gastos residenciais com isolamento de dados por usuário, regras de validação por contexto e exportação em PDF.',
           longDescription:
-            'Aplicação fullstack com Web API em C#/ASP.NET Core 10 e frontend em React + TypeScript. Possui autenticação com JWT e senhas hasheadas via BCrypt, isolamento completo de dados por perfil, CRUD de pessoas e categorias, registro de transações com regras de validação por tipo e faixa etária, relatórios por pessoa e por categoria, e exportação de relatórios em PDF com jsPDF. Backend hospedado no Railway via Dockerfile customizado; frontend no Vercel com SPA routing configurado.',
-        },
-        4: {
-          description: 'Este próprio portfolio, desenvolvido como vitrine de habilidades frontend modernas.',
-          longDescription:
-            'Portfolio desenvolvido com React + TypeScript + Vite + Tailwind CSS, apresentando animações suaves com Framer Motion e design responsivo. O projeto demonstra domínio de componentização, tipagem forte com TypeScript e estilização moderna com Tailwind CSS.',
+            'Controle financeiro doméstico onde cada perfil enxerga apenas os próprios dados — pessoas, categorias e transações ficam isolados na camada de API, não só na UI. Importante quando a alternativa seria confiar em filtros do frontend.\n\nA parte interessante são as regras de validação que variam por tipo de transação e faixa etária da pessoa envolvida — lógica de domínio real, não validação de formulário. Relatórios por pessoa e por categoria saem em PDF via jsPDF.\n\nStack: C# / ASP.NET Core 10, EF Core, SQLite, JWT com BCrypt, React + TypeScript + Tailwind. Deploy Railway via Dockerfile customizado para o backend, Vercel com SPA routing para o frontend. Demo ao vivo disponível.',
         },
       },
     },
     experience: {
       title: 'Experiência',
-      subtitle: 'Minha trajetória profissional construindo soluções de software reais.',
+      subtitle: 'Trajetória profissional construindo software que rodou em produção.',
       entries: [
         {
           role: 'Desenvolvedor Fullstack Jr',
+          company: 'Blue Technology',
+          period: 'Jan 2025 – Abr 2026',
+          location: 'Recife, PE',
           activities: [
-            'Desenvolvimento de aplicações fullstack com .NET 9 e React/TypeScript',
-            'Implementação de APIs REST com ASP.NET Core e Entity Framework 9',
-            'Aplicação de Clean Architecture e Domain-Driven Design',
-            'Colaboração em equipe com GitLab e Azure DevOps',
+            'Entreguei features fullstack em .NET 9 + React/TypeScript, da modelagem do domínio ao deploy.',
+            'Implementei APIs REST com ASP.NET Core e Entity Framework 9, com foco em separação de camadas e testabilidade.',
+            'Apliquei Clean Architecture e Domain-Driven Design em código que rodou em produção, não em estudos isolados.',
+            'Colaborei em fluxos de revisão de código e integração contínua via GitLab e Azure DevOps.',
           ],
         },
         {
           role: 'Estagiário de Desenvolvimento',
+          company: 'TJPE – SETIC',
+          period: 'Jun 2023 – Dez 2024',
+          location: 'Recife, PE',
           activities: [
-            'Participação na migração de sistemas Delphi legados para .NET 9 e React',
-            'Desenvolvimento de módulos de gestão de estoque, patrimônio e chamados',
-            'Criação de interfaces modernas com React + TypeScript + Ant Design',
-            'Geração de relatórios com jsPDF e jsCanvas',
+            'Migrei módulos críticos de Delphi legado para .NET 9 + React, sem interromper o uso pelos servidores do tribunal.',
+            'Construí interfaces de gestão de estoque, patrimônio e chamados com React, TypeScript e Ant Design.',
+            'Modelei endpoints REST e camadas de acesso a dados em ASP.NET Core para sustentar os novos módulos.',
+            'Gerei relatórios institucionais com jsPDF e jsCanvas a partir dos dados migrados.',
           ],
         },
       ],
@@ -125,7 +148,8 @@ const translations: Record<Language, Translations> = {
     },
     contact: {
       title: 'Contato',
-      subtitle: 'Tem um projeto em mente ou quer conversar? Entre em contato!',
+      subtitle:
+        'Aberto a oportunidades full-time, projetos por contrato e conversas técnicas — sinta-se à vontade para enviar uma mensagem.',
       locationLabel: 'Localização',
       nameLabel: 'Nome',
       namePlaceholder: 'Seu nome',
@@ -164,15 +188,15 @@ const translations: Record<Language, Translations> = {
       greeting: "Hello, I'm",
       subtitle: 'Fullstack .NET Developer',
       description:
-        'Specialized in building robust web applications with .NET 9 and React/TypeScript. Passionate about Clean Architecture, DDD, and quality code.',
+        'I build fullstack systems in modern .NET and React — from domain model to deploy, with Clean Architecture, DDD, and integration tests in place from the first commit.',
       viewProjects: 'View Projects',
       contact: 'Contact',
     },
     about: {
       title: 'About Me',
-      p1: "I'm a fullstack developer passionate about technology, focused on .NET 9 and React/TypeScript. I have solid experience building modern web applications, from RESTful APIs to sophisticated user interfaces.",
-      p2: 'During my internship at TJPE/SETIC, I actively participated in modernizing legacy Delphi systems to modern web platforms with .NET 9 and React, developing critical management modules.',
-      p3: 'At Blue Technology, I worked as a Junior Fullstack Developer, applying Clean Architecture, DDD and software engineering best practices on real projects.',
+      p1: 'Fullstack developer with two years of production experience — not just side projects. I built features that went on to serve internal users at TJPE/SETIC and applied Clean Architecture and DDD on real client deliveries at Blue Technology.',
+      p2: 'At TJPE/SETIC, I contributed to migrating legacy Delphi systems to a modern .NET 9 + React stack, shipping inventory, asset, and ticketing modules that now serve internal court users.',
+      p3: 'At Blue Technology, I worked as a Junior Fullstack Developer applying Clean Architecture, Domain-Driven Design, and engineering best practices on real deliveries — ASP.NET Core API design, React/TypeScript interfaces, and collaboration through GitLab and Azure DevOps.',
       quickFacts: 'Quick Facts',
       yearsExp: '2+ years',
       yearsExpLabel: 'of experience',
@@ -183,51 +207,68 @@ const translations: Record<Language, Translations> = {
     },
     skills: {
       title: 'Skills',
-      subtitle: 'Technologies and tools I use daily to build complete solutions.',
+      subtitle:
+        'The stack I use to design APIs, admin dashboards, and internal interfaces — from the database to the presentation layer.',
     },
     projects: {
       title: 'Projects',
-      subtitle: 'A selection of projects showcasing my skills and experience.',
+      subtitle:
+        'Projects I shipped from domain design to deploy — code on GitHub and, where possible, live demos.',
       all: 'All',
       details: 'Details',
       techStack: 'Tech Stack',
       viewDemo: 'View Demo',
       items: {
-        1: { description: 'Coming soon.', longDescription: 'Coming soon.' },
-        2: { description: 'Coming soon.', longDescription: 'Coming soon.' },
+        1: {
+          description: 'Under construction — coming soon.',
+          longDescription: 'Under construction — coming soon.',
+        },
+        5: {
+          description:
+            'Multi-tenant product feedback platform with embeddable widget and end-to-end workspace isolation.',
+          longDescription:
+            'Canny-style feedback collection, self-hostable by the client. Each workspace runs as an isolated tenant, with an admin dashboard separated from the widget that each customer embeds on their own site.\n\nThe interesting part is real cross-workspace isolation, SHA-256-hashed refresh tokens, and integration tests running against the actual app through WebApplicationFactory — not mocks. The widget and admin share a backend but ship as separate bundles.\n\nEngineering: Docker Compose to bring up the full stack locally, health checks, GitHub Actions with a coverage gate and container smoke tests on every push.',
+        },
+        6: {
+          description:
+            'Corporate audit log with Event Sourcing and a visual timeline of who changed what and when.',
+          longDescription:
+            'Corporate systems need an immutable, replayable trail of changes to sensitive entities — who edited, when, and what the prior state looked like. Auditrek solves this with Event Sourcing.\n\nCreate, update, and delete events are the source of truth. Current state is reconstructed from them, and the timeline shows actor, date, field-level diff, and the full reconstructed state at each point. That makes it possible to answer questions like "how did this product look in January?" without manual snapshots.\n\nStack: Turborepo + pnpm monorepo, Next.js frontend, Fastify API with tRPC and Zod, Prisma Client Extension, PostgreSQL on Neon, Clerk for auth. Deploy split between Vercel (front) and Railway (API). Live demo available.',
+        },
         3: {
           description:
-            'Fullstack web system for residential expense tracking with JWT authentication, per-user data isolation, financial reports and PDF export.',
+            'Residential expense tracker with per-user data isolation, context-aware validation rules, and PDF export.',
           longDescription:
-            'Fullstack application with a Web API in C#/ASP.NET Core 10 and a React + TypeScript frontend. Features JWT authentication with BCrypt-hashed passwords, complete per-profile data isolation, CRUD for people and categories, transaction recording with validation rules by type and age group, per-person and per-category reports, and PDF report export via jsPDF. Backend hosted on Railway via a custom Dockerfile; frontend on Vercel with SPA routing configured.',
-        },
-        4: {
-          description: 'This very portfolio, built as a showcase of modern frontend skills.',
-          longDescription:
-            'Portfolio built with React + TypeScript + Vite + Tailwind CSS, featuring smooth animations with Framer Motion and responsive design. The project demonstrates mastery of componentization, strong TypeScript typing, and modern styling with Tailwind CSS.',
+            'Household expense tracking where each profile sees only its own data — people, categories, and transactions are isolated at the API layer, not just in the UI. That matters when the alternative would be trusting frontend filters.\n\nThe interesting part is validation rules that vary by transaction type and the age group of the person involved — real domain logic, not form validation. Per-person and per-category reports export to PDF via jsPDF.\n\nStack: C# / ASP.NET Core 10, EF Core, SQLite, JWT with BCrypt, React + TypeScript + Tailwind. Deploy on Railway via custom Dockerfile for the backend, Vercel with SPA routing for the frontend. Live demo available.',
         },
       },
     },
     experience: {
       title: 'Experience',
-      subtitle: 'My professional journey building real software solutions.',
+      subtitle: 'Professional path building software that ran in production.',
       entries: [
         {
           role: 'Junior Fullstack Developer',
+          company: 'Blue Technology',
+          period: 'Jan 2025 – Apr 2026',
+          location: 'Recife, PE',
           activities: [
-            'Fullstack application development with .NET 9 and React/TypeScript',
-            'REST API implementation with ASP.NET Core and Entity Framework 9',
-            'Application of Clean Architecture and Domain-Driven Design',
-            'Team collaboration using GitLab and Azure DevOps',
+            'Shipped fullstack features in .NET 9 + React/TypeScript, from domain modeling to deploy.',
+            'Implemented REST APIs with ASP.NET Core and Entity Framework 9, focused on layer separation and testability.',
+            'Applied Clean Architecture and Domain-Driven Design in code that ran in production, not in isolated exercises.',
+            'Collaborated in code review and continuous integration flows via GitLab and Azure DevOps.',
           ],
         },
         {
           role: 'Development Intern',
+          company: 'TJPE – SETIC',
+          period: 'Jun 2023 – Dec 2024',
+          location: 'Recife, PE',
           activities: [
-            'Participated in migrating legacy Delphi systems to .NET 9 and React',
-            'Developed inventory, asset management, and ticketing modules',
-            'Built modern interfaces with React + TypeScript + Ant Design',
-            'Generated reports with jsPDF and jsCanvas',
+            'Migrated critical legacy Delphi modules to .NET 9 + React without disrupting use by court staff.',
+            'Built inventory, asset, and ticketing management interfaces with React, TypeScript, and Ant Design.',
+            'Modeled REST endpoints and data-access layers in ASP.NET Core to back the new modules.',
+            'Generated institutional reports with jsPDF and jsCanvas from the migrated data.',
           ],
         },
       ],
@@ -243,7 +284,8 @@ const translations: Record<Language, Translations> = {
     },
     contact: {
       title: 'Contact',
-      subtitle: 'Have a project in mind or want to chat? Get in touch!',
+      subtitle:
+        'Open to full-time roles, contract projects, and technical conversations — feel free to send a message.',
       locationLabel: 'Location',
       nameLabel: 'Name',
       namePlaceholder: 'Your name',

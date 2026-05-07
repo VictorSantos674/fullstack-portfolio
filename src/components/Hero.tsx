@@ -12,7 +12,7 @@ interface Developer {
 const victor: Developer = {
   name: "Victor Souza Santos",
   stack: [
-    ".NET 9",
+    "Modern .NET",
     "React",
     "TypeScript",
   ],

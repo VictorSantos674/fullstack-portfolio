@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { User, Briefcase, Code2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const techBadges = ['.NET 9', 'React', 'TypeScript', 'ASP.NET Core', 'SQL Server', 'Clean Architecture'];
+const techBadges = ['.NET', 'React', 'TypeScript', 'ASP.NET Core', 'PostgreSQL', 'Clean Architecture'];
 
 export default function About() {
   const { t } = useLanguage();
